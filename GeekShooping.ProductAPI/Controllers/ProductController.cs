@@ -16,7 +16,7 @@ namespace GeekShooping.ProductAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> PostProduct(ProductDto productDto)
+        public async Task<ActionResult<ProductDto>> PostProduct([FromBody] ProductDto productDto)
         {
             if (productDto == null) return BadRequest();
             return Ok(await _repository.Post(productDto));
@@ -38,14 +38,14 @@ namespace GeekShooping.ProductAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ProductDto>> PutProduct(ProductDto productDto)
+        public async Task<ActionResult<ProductDto>> PutProduct([FromBody] ProductDto productDto)
         {
             if (productDto == null) return BadRequest();
             return Ok(await _repository.Put(productDto));
         }
 
         [HttpDelete("{productId}")]
-        public async Task<IActionResult> PutProduct(long productId)
+        public async Task<IActionResult> DeleteProduct(long productId)
         {
             if (await _repository.Delete(productId) == false) return NotFound();
             else return Ok();
