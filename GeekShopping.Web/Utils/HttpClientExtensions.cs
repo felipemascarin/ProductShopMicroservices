@@ -14,22 +14,9 @@ namespace GeekShopping.Web.Utils
                 $"{response.ReasonPhrase}"
                 );
             var dataAsString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var dataAsObject = JsonSerializer.Deserialize<T>
-                (
-                dataAsString,
+            return JsonSerializer.Deserialize<T>(dataAsString,
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
                 );
-            if (dataAsObject != null)
-            {
-                return dataAsObject;
-            }
-            else
-            {
-                throw new ApplicationException(
-                $"Somethind went wrong calling the API: " +
-                $"Retorned Json is Null"
-                );
-            }
         }
 
         public static Task<HttpResponseMessage> PostAsJson<T>(this HttpClient httpClient, string url, T productData)
